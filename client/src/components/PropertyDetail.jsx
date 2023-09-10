@@ -21,6 +21,7 @@ const PropertyDetail = ({
   noOfBedrooms,
   description,
   city,
+  isBooked,
 }) => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -135,7 +136,7 @@ const PropertyDetail = ({
         <Button
           variant="contained"
           color="warning"
-          disabled={!user}
+          disabled={!user || isBooked}
           onClick={handleView}
         >
           Book Your Visit
@@ -154,7 +155,7 @@ const PropertyDetail = ({
           <Button
             variant="outlined"
             color="warning"
-            disabled={!user || isLoading}
+            disabled={!user || isLoading || isBooked}
             type="submit"
           >
             Buy this property
@@ -165,6 +166,12 @@ const PropertyDetail = ({
       {!user && (
         <Typography mt={2} color="red" variant="caption">
           Please Login to access this feature
+        </Typography>
+      )}
+
+      {isBooked && (
+        <Typography mt={3} color="red" variant="caption">
+          Property is already Booked
         </Typography>
       )}
     </Box>
@@ -178,6 +185,7 @@ PropertyDetail.propTypes = {
   noOfBedrooms: PropTypes.number,
   description: PropTypes.string,
   city: PropTypes.string,
+  isBooked: PropTypes.bool,
 };
 
 export default PropertyDetail;

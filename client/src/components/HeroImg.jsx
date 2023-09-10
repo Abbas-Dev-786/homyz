@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 
 const HeroImg = ({ img, banner }) => {
@@ -9,6 +10,11 @@ const HeroImg = ({ img, banner }) => {
       <img src={img} width="100%" />
     </Box>
   );
+};
+
+HeroImg.propTypes = {
+  img: PropTypes.string,
+  banner: PropTypes.bool,
 };
 
 export default HeroImg;

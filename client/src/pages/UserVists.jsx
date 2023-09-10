@@ -22,8 +22,6 @@ const UserVists = () => {
   const { data, isLoading, error } = useQuery(["me"], getME);
   const queryClient = useQueryClient();
 
-  console.log(data);
-
   const { mutate } = useMutation(deleteView, {
     onError: (err) => {
       toast.error(err.message);
