@@ -70,8 +70,6 @@ const createCheckout = async (property, email, price, status) => {
 module.exports.webhook = (req, res, next) => {
   const sig = req.headers["stripe-signature"];
 
-  console.log(sig);
-
   let event;
 
   try {
@@ -80,6 +78,8 @@ module.exports.webhook = (req, res, next) => {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
+
+    console.log(event);
   } catch (err) {
     return res.status(400).send(`Webhook error: ${err.message}`);
   }
