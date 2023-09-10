@@ -72,9 +72,11 @@ module.exports.webhook = (req, res, next) => {
 
   let event;
 
+  console.log(req.body);
+
   try {
     event = stripe.webhooks.constructEvent(
-      JSON.stringify(req.body),
+      req.body,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
