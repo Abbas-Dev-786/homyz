@@ -1,4 +1,7 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2023-08-16",
+  appInfo: { name: "Homyz" },
+});
 const User = require("../models/userModel");
 const Transaction = require("../models/transactionModel");
 const Property = require("../models/propertyModel");
