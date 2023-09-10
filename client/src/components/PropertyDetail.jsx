@@ -26,6 +26,7 @@ const PropertyDetail = ({
   const { user } = useAuth();
   const { palette } = useTheme();
   const [isDateModelOpen, setDateModel] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sanitizedDescription = htmlToText(description);
 
@@ -36,6 +37,7 @@ const PropertyDetail = ({
   const handleBuy = async (e) => {
     try {
       e.preventDefault();
+      setIsLoading(true);
 
       const stripe = await loadStripe(
         "pk_test_51Nm9EoSHOGV61bOvYvudVLva41hr7n0bAq2OB1lZBu93gjpyLyK1dCNBTEZrssEJfx3sRpwsiNSKh21GEzmOrrcL00sRBbsbMV"
@@ -62,9 +64,11 @@ const PropertyDetail = ({
       });
 
       if (result.error) {
+        setIsLoading(false);
         toast.error(result.error);
       }
     } catch (err) {
+      setIsLoading(false);
       toast.error(err.message);
     }
   };
@@ -150,7 +154,7 @@ const PropertyDetail = ({
           <Button
             variant="outlined"
             color="warning"
-            disabled={!user}
+            disabled={!user || isLoading}
             type="submit"
           >
             Buy this property
